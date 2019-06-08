@@ -1,0 +1,45 @@
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+
+  <label>
+    First Name:
+    <input type="text" formControlName="firstName">
+  </label>
+  <br>
+  <label>
+    Last Name:
+    <input type="text" formControlName="lastName">
+  </label>
+  <br>
+  <label>
+    Age:
+    <input type="text" formControlName="age">
+  </label>
+  <br>
+  <button type="submit" [disabled]="!profileForm.valid">Agregar</button>
+</form>
+
+<h2>Usuarios</h2>
+<ul class="usuario">
+  <li *ngFor="let usuario of usuarios" routerLink="/detalle/{{usuario.id}}"
+    [class.selected]="usuario === usuarioSeleccionado" (click)="alSeleccionar(usuario)">
+    <a routerLink="/detalle/{{usuario.id}}">
+      <span class="badge">{{usuario.id}}</span> {{usuario.firstName}}
+    </a>
+    <button class="delete" title="delete usuario" (click)="delete(usuario)">x</button>
+  </li>
+</ul>
+
+<div *ngIf="usuarioSeleccionado">
+  <h2>{{usuarioSeleccionado.firstName | uppercase}} Details</h2>
+  <div><span>id: </span>{{usuarioSeleccionado.id}}</div>
+  <div>
+    <label>Last Name:
+      <input [(ngModel)]="usuarioSeleccionado.lastName" placeholder="lastName" />
+    </label>
+  </div>
+  <div>
+    <label>Age:
+      <input [(ngModel)]="usuarioSeleccionado.age" placeholder="age" />
+    </label>
+  </div>
+</div>
